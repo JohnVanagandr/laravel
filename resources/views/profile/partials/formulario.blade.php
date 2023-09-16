@@ -40,3 +40,8 @@
          {{ $errors->first('linkedin') }}
     </span>
 </div>
+
+<div class="form-group col-md-12">
+    {{ Form::label('Archivos', null, ['class' => 'form-label mt-1']) }}
+    {{ Form::file('file', ['class' => 'form-control', 'accept' => 'image/*']) }}
+</div>

@@ -7,6 +7,7 @@ use App\Models\Profile;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilleController extends Controller
 {
@@ -53,10 +54,17 @@ class ProfilleController extends Controller
      */
     public function update(ProfileRequest $request, Profile $profile)
     {
+        
         try {
             $profile->update($request->all());
+
+            $path = Storage::put('public/avatars', $request->file('file'));
+
+            dd($path, $profile);
+
             return redirect()->back()->with('info', [ 'color' => 'success', 'texto' =>'Todo bien']);
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('info', [ 'color' => 'danger', 'texto' =>'Todo mal']);;
         }
     }

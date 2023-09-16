@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        {!! Form::model($profile, ['route' => ['profile.update', $profile], 'method' => 'PUT']) !!}
+                        {!! Form::model($profile, ['route' => ['profile.update', $profile], 'method' => 'PUT' , 'files' => true]) !!}
 
                         @include('profile.partials.formulario')
 
