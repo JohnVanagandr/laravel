@@ -46,6 +46,7 @@ class ProfilleController extends Controller
      */
     public function edit(Profile $profile)
     {
+        // dd($profile->avatar->url_path);
         return view('profile.edit', compact('profile'));
     }
 
@@ -54,18 +55,22 @@ class ProfilleController extends Controller
      */
     public function update(ProfileRequest $request, Profile $profile)
     {
-        
+
         try {
             $profile->update($request->all());
 
-            $path = Storage::put('public/avatars', $request->file('file'));
+            if ($request->file('file')) {
+                $path = Storage::put('public/avatars', $request->file('file'));
+                $profile->avatar()->create([
+                    'name' => "Nombre por defecto",
+                    'path' => $path
+                ]);
+            }
 
-            dd($path, $profile);
-
-            return redirect()->back()->with('info', [ 'color' => 'success', 'texto' =>'Todo bien']);
+            return redirect()->back()->with('info', ['color' => 'success', 'texto' => 'Todo bien']);
         } catch (\Exception $e) {
             dd($e);
-            return redirect()->back()->with('info', [ 'color' => 'danger', 'texto' =>'Todo mal']);;
+            return redirect()->back()->with('info', ['color' => 'danger', 'texto' => 'Todo mal']);;
         }
     }
 }

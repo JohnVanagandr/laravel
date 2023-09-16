@@ -38,4 +38,9 @@ class Profile extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function avatar()
+    {
+        return $this->hasOne(Avatar::class);
+    }
 }
